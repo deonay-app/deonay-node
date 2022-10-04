@@ -7,13 +7,19 @@ type DeonayResponse = {
   "users": Array<DeonayResponse["user"]>
 }
 
-function fetch(apiKey: string, resource: keyof DeonayResponse) {
+function fetch(apiKey: string, resource: keyof DeonayResponse, data?: Object) {
   return new Promise<DeonayResponse[typeof resource]>((success, fail) => {
     let result = "";
-    http.get(`http://localhost:8080/api/rest/${resource}`, {
+    const datastr = JSON.stringify(data || {});
+
+    const req = http.request({
+      hostname: 'localhost',
+      port: 8080,
+      path: `/api/rest/${resource}`,
+      method: data ? 'POST' : 'GET',
       headers: {
-        "x-api-key": apiKey,
-        "x-hasura-role": "api"
+        'Content-Type': 'application/json',
+        ...(data ? { 'Content-Length': Buffer.byteLength(datastr) } : {}),
       }
     }, (res) => {
 
@@ -28,6 +34,12 @@ function fetch(apiKey: string, resource: keyof DeonayResponse) {
     }).on('error', (e) => {
       fail(e);
     });
+
+    // Write data to request body
+    if (data) {
+      req.write(datastr);
+    }
+    req.end();
   })
 }
 
@@ -43,6 +55,8 @@ class DeonayClient {
     list: () => async () => await fetch(this.apiKey, "users"),
 
     getById: async () => await fetch(this.apiKey, "user"),
+
+
   }
 }
 
