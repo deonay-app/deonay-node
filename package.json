@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/deonay-app/node-library#readme",
   "devDependencies": {
+    "@types/node": "^18.8.1",
     "typescript": "^4.8.4",
     "typings": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
