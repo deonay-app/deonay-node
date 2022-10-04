@@ -1,0 +1,24 @@
+{
+  "name": "deonay",
+  "version": "0.0.0",
+  "description": "Deonay API Library",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deonay-app/node-library.git"
+  },
+  "author": "Deonay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deonay-app/node-library/issues"
+  },
+  "homepage": "https://github.com/deonay-app/node-library#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4",
+    "typings": "^2.1.1"
+  }
+}
